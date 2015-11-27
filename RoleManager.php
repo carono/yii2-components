@@ -21,10 +21,15 @@ class RoleManager
 
 	/**
 	 * @return \yii\rbac\ManagerInterface
+	 * @throws \Exception
 	 */
 	public static function auth()
 	{
-		return \Yii::$app->authManager;
+		if (!\Yii::$app->authManager) {
+			throw new \Exception('Configure auth manager');
+		} else {
+			return \Yii::$app->authManager;
+		}
 	}
 
 	/**
