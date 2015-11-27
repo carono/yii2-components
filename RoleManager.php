@@ -13,12 +13,6 @@ use yii\web\Request;
 
 class RoleManager
 {
-	const R_USER = 'user';
-	const R_ADMIN = 'admin';
-	const R_ROOT = 'root';
-	const R_MANAGER = 'manager';
-	const R_GUEST = 'guest';
-
 	/**
 	 * @return \yii\rbac\ManagerInterface
 	 * @throws \Exception
