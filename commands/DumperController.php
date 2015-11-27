@@ -1,7 +1,9 @@
 <?php
 
-namespace carono\components\dumper;
+namespace carono\components\commands;
 
+use carono\components\dumper\BaseDumper;
+use carono\components\dumper\PostgreSqlDumper;
 use yii\console\Controller;
 use yii\i18n\Formatter;
 use Yii;
@@ -13,7 +15,7 @@ use Yii;
  */
 class DumperController extends Controller
 {
-	public $backup = '';
+	public $backup = '@app/backups';
 	public $db = 'db';
 	public $user;
 	public $password;
