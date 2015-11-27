@@ -1,0 +1,21 @@
+{
+    "name": "carono/yii2-components",
+    "description": "Components for yii2",
+    "type": "yii2-extension",
+    "keywords": ["yii2", "extension"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alexander Kasyanov",
+            "email": "spamer2000@yandex.ru"
+        }
+    ],
+	 "require": {
+        "yiisoft/yii2": "~2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "carono\\components\\": ""
+        }
+    }
+}
