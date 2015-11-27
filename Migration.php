@@ -1,6 +1,6 @@
 <?php
 
-namespace app\components;
+namespace carono\components;
 
 use yii\db\Migration as BaseMigration;
 use yii\helpers\ArrayHelper;
