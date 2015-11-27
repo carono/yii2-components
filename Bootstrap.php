@@ -25,7 +25,7 @@ class Bootstrap implements BootstrapInterface
 			if (isset($app->controllerMap[$name])) {
 				$name = "dumper2";
 			}
-			$app->controllerMap[$name] = 'carono\commands\DumperController';
+			$app->controllerMap[$name] = 'carono\components\commands\DumperController';
 		}
 	}
 }
