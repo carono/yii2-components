@@ -27,29 +27,24 @@ class DumperController extends Controller
 			case "pgsql":
 				$this->dumper = new PostgreSqlDumper();
 				break;
-			default:
-				echo "Implementation for $driver not found";
-				exit;
 		}
-		$this->dumper->db = $this->db;
-
-		if (!$this->backup) {
+		if ($this->dumper) {
+			$this->dumper->db = $this->db;
 			if (isset(\Yii::$app->params["dumperBackup"])) {
-				$this->backup = Yii::getAlias(\Yii::$app->params["dumperBackup"]);
+				$this->backup = $this->dumper->backup = Yii::getAlias(\Yii::$app->params["dumperBackup"]);
 			}
-		}
-		$this->dumper->backup = $this->backup;
-		if (!is_dir($this->dumper->backup)) {
-			if ($this->dumper->backup) {
-				echo "Backup dir is not exist: " . $this->dumper->backup;
-			} else {
-				echo "Backup dir is not exist, set Yii::params[dumperBackup]";
+			if ($this->dumper->backup && !is_dir($this->dumper->backup)) {
+				if ($this->dumper->backup) {
+					echo "Backup dir is not exist: " . $this->dumper->backup;
+				} else {
+					echo "Backup dir is not exist, set Yii::params[dumperBackup]";
+				}
+				exit;
 			}
-			exit;
+			$this->dumper->user = $this->user;
+			$this->dumper->password = $this->password;
+			$this->dumper->init();
 		}
-		$this->dumper->user = $this->user;
-		$this->dumper->password = $this->password;
-		$this->dumper->init();
 	}
 
 	public function actionDrop()
