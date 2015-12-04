@@ -190,7 +190,7 @@ class UserCommand extends Controller
 			} else {
 				$names = [$id];
 			}
-			foreach ($names as $name) {
+			foreach (array_filter($names) as $name) {
 				if ($module) {
 					$className = join('\\', ['app', 'modules', $module->id, 'controllers', $name . "Controller"]);
 				} else {
