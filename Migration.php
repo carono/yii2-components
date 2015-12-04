@@ -1,5 +1,4 @@
 <?php
-
 namespace carono\components;
 
 use yii\db\Migration as BaseMigration;
@@ -445,7 +444,7 @@ class Migration extends BaseMigration
 			$this->insert($table, $row);
 		}
 		if ($updateSeq) {
-			$c = (int)\Yii::$app->db->createCommand("SELECT count(*) FROM \"$table\"")->queryScalar() + 1;
+			$c = (int)\Yii::$app->db->createCommand("SELECT count(*) FROM [[$table]]")->queryScalar() + 1;
 			$this->execute("ALTER SEQUENCE {$table}_{$updateSeq}_seq RESTART WITH $c;");
 		}
 	}
