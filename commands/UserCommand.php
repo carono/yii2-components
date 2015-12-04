@@ -1,6 +1,6 @@
 <?php
 
-namespace carono\components;
+namespace carono\components\commands;
 
 use yii\base\InlineAction;
 use yii\console\Controller;
