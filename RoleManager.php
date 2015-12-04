@@ -157,9 +157,9 @@ class RoleManager
 		return join(
 			":", array_filter(
 				[
-					ucwords($module, false),
-					ucwords($controller, false),
-					ucwords(self::formActionName($action), false),
+					ucwords($module),
+					ucwords($controller),
+					ucwords(self::formActionName($action)),
 				]
 			)
 		);
