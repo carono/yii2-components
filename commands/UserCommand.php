@@ -10,7 +10,7 @@ class UserCommand extends Controller
 {
 	public $userClass = 'app\models\User';
 
-	public static function roles()
+	public function roles()
 	{
 		/*
 		return [
@@ -22,7 +22,7 @@ class UserCommand extends Controller
 		return [];
 	}
 
-	public static function permission()
+	public function permission()
 	{
 		/*
 		return [
@@ -36,7 +36,7 @@ class UserCommand extends Controller
 		return [];
 	}
 
-	public static function defaultUsers()
+	public function defaultUsers()
 	{
 		/*
 		return [
@@ -97,7 +97,7 @@ class UserCommand extends Controller
 
 	public function actionDefault()
 	{
-		$users = self::defaultUsers();
+		$users = $this->defaultUsers();
 		foreach ($users as $user) {
 			$this->updateUser($user);
 			RoleManager::revokeAll($user["login"]);
@@ -109,8 +109,8 @@ class UserCommand extends Controller
 
 	public function actionFillRoles()
 	{
-		$roles = self::roles();
-		$permissions = self::permission();
+		$roles = $this->roles();
+		$permissions = $this->permission();
 		foreach ($roles as $role => $parents) {
 			RoleManager::createRole($role);
 			RoleManager::removeChildren($role);
@@ -123,7 +123,7 @@ class UserCommand extends Controller
 			}
 		}
 		foreach ($permissions as $permission => $roles1) {
-			foreach (self::normalizePermission($permission) as $name) {
+			foreach ($this->normalizePermission($permission) as $name) {
 				RoleManager::createPermission($name);
 				foreach ($roles1 as $role) {
 					RoleManager::addChild($role, $name);
@@ -137,13 +137,13 @@ class UserCommand extends Controller
 		}
 	}
 
-	public static function normalizePermission($expressionPermission)
+	public function normalizePermission($expressionPermission)
 	{
 		if (strpos($expressionPermission, '*') !== false) {
 			$arr = explode(':', $expressionPermission);
-			$modules = self::collectModules($arr[0]);
-			$controllers = self::collectControllers($modules, $arr[1]);
-			$actions = self::collectActions($controllers, $arr[2]);
+			$modules = $this->collectModules($arr[0]);
+			$controllers = $this->collectControllers($modules, $arr[1]);
+			$actions = $this->collectActions($controllers, $arr[2]);
 			$permissions = [];
 			foreach ($actions as $action) {
 				$permissions[] = RoleManager::formPermissionByAction($action);
@@ -154,7 +154,7 @@ class UserCommand extends Controller
 		}
 	}
 
-	public static function collectActions($controllers, $id)
+	public function collectActions($controllers, $id)
 	{
 		$actions = [];
 		foreach ($controllers as $controller) {
@@ -172,7 +172,7 @@ class UserCommand extends Controller
 		return $actions;
 	}
 
-	public static function collectControllers($modules, $id)
+	public function collectControllers($modules, $id)
 	{
 		$controllers = [];
 		foreach ($modules as $module) {
@@ -204,7 +204,7 @@ class UserCommand extends Controller
 		return $controllers;
 	}
 
-	public static function collectModules($id = '*')
+	public function collectModules($id = '*')
 	{
 		$f = function ($v) {
 			$name = basename($v);
