@@ -21,10 +21,7 @@ class Bootstrap implements BootstrapInterface
 	public function bootstrap($app)
 	{
 		if ($app instanceof \yii\console\Application) {
-			$name = "dumper";
-			if (isset($app->controllerMap[$name])) {
-				$name = "dumper2";
-			}
+			$name = file_exists(\Yii::getAlias('@app/commands/DumperController.php')) ? "caronoDumper" : "dumper";
 			$app->controllerMap[$name] = 'carono\components\commands\DumperController';
 		}
 	}
