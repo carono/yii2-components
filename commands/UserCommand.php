@@ -4,6 +4,7 @@ namespace carono\components\commands;
 
 use yii\base\InlineAction;
 use yii\console\Controller;
+use carono\components\RoleManager;
 
 class UserCommand extends Controller
 {
