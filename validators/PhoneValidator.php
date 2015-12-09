@@ -23,7 +23,7 @@ class PhoneValidator extends Validator
 			return null;
 		}
 		if (!PhoneHelper::normalNumber($value)) {
-			return [$this->message];
+			return [$this->message, []];
 		}
 		return null;
 	}
