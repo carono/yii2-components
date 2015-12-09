@@ -1,8 +1,8 @@
 <?php
 
-namespace carono\validators;
+namespace carono\components\validators;
 
-use carono\helpers\PhoneHelper;
+use carono\components\helpers\PhoneHelper;
 use yii\validators\Validator;
 
 class PhoneValidator extends Validator

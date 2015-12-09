@@ -1,6 +1,6 @@
 <?php
 
-namespace carono\helpers;
+namespace carono\components\helpers;
 
 class PhoneHelper
 {
