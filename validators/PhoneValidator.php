@@ -1,12 +1,14 @@
 <?php
 
-namespace app\validators;
+namespace carono\validators;
 
 use carono\helpers\PhoneHelper;
 use yii\validators\Validator;
 
 class PhoneValidator extends Validator
 {
+	public $allowEmpty = true;
+
 	public function init()
 	{
 		parent::init();
@@ -17,8 +19,12 @@ class PhoneValidator extends Validator
 
 	protected function validateValue($value)
 	{
+		if ($this->allowEmpty && !$value) {
+			return null;
+		}
 		if (!PhoneHelper::normalNumber($value)) {
 			return [$this->message];
 		}
+		return null;
 	}
 }
