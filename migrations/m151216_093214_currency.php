@@ -21,9 +21,27 @@ class m151216_093214_currency extends Migration
 		];
 	}
 
+	public function index($array = [])
+	{
+		return [
+			["currency", ["code"], true]
+		];
+	}
+
 	public function safeUp()
 	{
 		$this->upTables();
+		$this->upIndex();
+		$currency = $this->getData();
+		$this->insertTo('currency', $currency);
+	}
+
+
+	public function getData()
+	{
+		return [
+
+		];
 	}
 
 	public function safeDown()
