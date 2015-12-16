@@ -32,16 +32,7 @@ class m151216_093214_currency extends Migration
 	{
 		$this->upTables();
 		$this->upIndex();
-		$currency = $this->getData();
-		$this->insertTo('currency', $currency);
-	}
-
-
-	public function getData()
-	{
-		return [
-
-		];
+		(new \carono\components\commands\CurrencyController(null, null))->actionIndex();
 	}
 
 	public function safeDown()
