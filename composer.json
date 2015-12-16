@@ -11,8 +11,16 @@
         }
     ],
 	 "require": {
-        "yiisoft/yii2": "~2.0"
+        "yiisoft/yii2": "~2.0",
+		"schmunk42/yii2-giiant": "^0.5.0",
+		"carono/murl": "dev-master"	
     },
+	"repositories": [
+		{
+			"type": "vcs",
+			"url": "https://github.com/carono/murl"
+		}
+	],	
     "autoload": {
         "psr-4": {
             "carono\\components\\": ""
