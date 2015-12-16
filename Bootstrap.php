@@ -48,7 +48,7 @@ class Bootstrap implements BootstrapInterface
 				}
 				$template = '@vendor/carono/yii2-components/templates/giiant-model';
 				$gii->generators["giiant-model"]["templates"]["caronoModel"] = $template;
-				$app->controllerMap['giix'] = 'carono\components\commands\GiixhController';
+				$app->controllerMap['giix'] = 'carono\components\commands\GiixController';
 			}
 		}
 	}
