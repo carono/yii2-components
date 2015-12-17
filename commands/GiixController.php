@@ -73,16 +73,18 @@ class GiixController extends BatchController
 		if (count($arr) == 3) {
 			$m = $arr[0];
 			$c = ucfirst($arr[1]);
+			$c1 = strtolower($arr[1]);
 			$a = ucfirst($arr[2]);
 			$a1 = strtolower($a);
 			$file = \Yii::getAlias("@app/modules/$m/controllers/{$c}Controller.php");
-			$fileView = \Yii::getAlias("@app/modules/$m/views/{$c}/$a1.php");
+			$fileView = \Yii::getAlias("@app/modules/$m/views/{$c1}/$a1.php");
 		} elseif (count($arr) == 2) {
 			$c = ucfirst($arr[0]);
+			$c1 = strtolower($arr[0]);
 			$a = ucfirst($arr[1]);
 			$a1 = strtolower($a);
 			$file = \Yii::getAlias("@app/controllers/{$c}Controller.php");
-			$fileView = \Yii::getAlias("@app/views/{$c}/$a1.php");
+			$fileView = \Yii::getAlias("@app/views/{$c1}/$a1.php");
 		} else {
 		}
 		if (file_exists($file)) {
@@ -104,7 +106,7 @@ class GiixController extends BatchController
 		$id = ucfirst($id);
 		$view = strtolower($id);
 		$p = [];
-		foreach ($params as $value) {
+		foreach (array_filter($params) as $value) {
 			$p[] = "$" . trim($value);
 		}
 		$p = join(', ', $p);
