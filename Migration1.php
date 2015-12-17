@@ -3,7 +3,7 @@ namespace carono\components;
 
 use yii\helpers\ArrayHelper;
 
-class Migration extends \CDbMigration
+class Migration1 extends \CDbMigration
 {
 	public static function pivot()
 	{
