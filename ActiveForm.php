@@ -7,7 +7,7 @@ use yii\bootstrap\ActiveForm as BootstrapForm;
 
 class ActiveForm extends BootstrapForm
 {
-	public $fieldClass = 'app\components\ActiveField';
+	public $fieldClass = 'carono\components\ActiveField';
 
 	/**
 	 * @param \yii\base\Model $model
