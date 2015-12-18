@@ -60,6 +60,12 @@ class ActiveField extends BootstrapActiveField
 	public function dropDownList($items, $options = [], $field = 'name')
 	{
 		$models = self::modelsToOptions($items, $field);
+		return parent::dropDownList($models, $options);
+	}
+
+	public function dropDownList2($items, $options = [], $field = 'name')
+	{
+		$models = self::modelsToOptions($items, $field);
 		$settings = [
 			'data'      => $models,
 			"model"     => $this->model,
