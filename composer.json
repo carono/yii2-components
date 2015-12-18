@@ -19,6 +19,10 @@
     "kartik-v/yii2-widget-depdrop": "^1.0",
     "kartik-v/yii2-widget-select2": "^2.0"
   },
+  "require-dev": {
+    "carono/murl": "*",
+    "carono/company-info": "*"
+  },
   "autoload": {
     "psr-4": {
       "carono\\components\\": ""
