@@ -51,7 +51,7 @@ class GiixController extends BatchController
 			$generator->controllerClass = "app\\controllers\\{$c}Controller";
 			$generator->viewPath = "views\\" . strtolower($c);
 		} else {
-			$m = ucfirst($arr[0]);
+			$m = strtolower($arr[0]);
 			$c = ucfirst($arr[1]);
 			$generator->controllerClass = "app\\modules\\{$m}\\controllers\\{$c}Controller";
 			$generator->viewPath = "modules\\{$m}\\views\\" . strtolower($c);
