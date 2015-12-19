@@ -268,7 +268,7 @@ class Migration1 extends \CDbMigration
 				$this->createTable($name, $columns, $options);
 				if ($pks > 1) {
 					$this->addPrimaryKey(
-						self::formIndexName(self::removeSchema($name), $pkColumns, 'pk'), $name, $pkColumns
+						self::formIndexName(self::removeSchema($name), $pkColumns, 'pk'), $name, join(',',$pkColumns)
 					);
 				}
 			}
