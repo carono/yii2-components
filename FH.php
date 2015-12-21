@@ -7,10 +7,10 @@ class FH
 	public static function getAppDir()
 	{
 		$dir = dirname(__FILE__);
-		while ($dir && (basename($dir) != 'protected') && !(file_exists($dir) . DIRECTORY_SEPARATOR . 'yii')) {
+		while ($dir && (basename($dir) != 'protected') && !(file_exists($dir . DIRECTORY_SEPARATOR . 'yii'))) {
 			$dir = dirname($dir);
 		}
-		return dirname($dir);
+		return $dir;
 	}
 
 	public static function getConfigDir()
@@ -47,15 +47,9 @@ class FH
 		return self::getFile('yiit.php');
 	}
 
-	public static function includeYii2()
-	{
-		require(self::getFile('autoload'));
-		require(self::getFile('/yiisoft/yii2/Yii'));
-	}
-
 	public static function isYii2()
 	{
-		return true;
+		return file_exists(self::getAppDir() . DIRECTORY_SEPARATOR . 'yii');
 	}
 
 	/**
@@ -121,7 +115,6 @@ class FH
 		try {
 			$file = self::getConfigFile($fileName);
 		} catch (\Exception $e) {
-//			echo $e->getMessage();
 		}
 		if ($file) {
 			if (!is_array($data = require $file)) {
