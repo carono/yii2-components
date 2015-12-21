@@ -14,6 +14,7 @@
     }
   ],
   "require": {
+    "2amigos/yii2-type-ahead-widget": "~1.0",
     "yiisoft/yii2": "~2.0",
     "schmunk42/yii2-giiant": "^0.5.0",
     "kartik-v/yii2-widget-depdrop": "^1.0",

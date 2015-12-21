@@ -2,13 +2,15 @@
 
 namespace carono\components;
 
+use dosamigos\typeahead\Bloodhound;
+use dosamigos\typeahead\TypeAhead;
 use kartik\depdrop\DepDrop;
 use kartik\select2\Select2;
 use yii\base\Model;
 use yii\bootstrap\ActiveField as BootstrapActiveField;
 use yii\bootstrap\Html as BaseHtml;
-use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 
 class ActiveField extends BootstrapActiveField
 {
@@ -86,6 +88,41 @@ class ActiveField extends BootstrapActiveField
 			$models = ArrayHelper::map($items, 'primaryKey', $field);
 		}
 		return $models;
+	}
+
+	public function typeahead($url, $clientOptions = [])
+	{
+
+		$engine = new Bloodhound(
+			[
+				'name'          => 'countriesEngine',
+				'clientOptions' => [
+					'datumTokenizer' => new \yii\web\JsExpression("Bloodhound.tokenizers.obj.whitespace('name')"),
+					'queryTokenizer' => new \yii\web\JsExpression("Bloodhound.tokenizers.whitespace"),
+					'remote'         => [
+						'url'      => Url::to([$url, 'q' => 'QRY']),
+						'wildcard' => 'QRY'
+					]
+				]
+			]
+		);
+
+		return $this->widget(
+			TypeAhead::className(), [
+				'options'       => ['class' => 'form-control'],
+				'engines'       => [$engine],
+				'clientOptions' => [
+					'highlight' => true,
+					'minLength' => 2
+				],
+				'dataSets'      => [
+					[
+						'displayKey' => 'text',
+						'source'     => $engine->getAdapterScript()
+					]
+				]
+			]
+		);
 	}
 
 	public function sex($options = [])
