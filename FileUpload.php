@@ -10,7 +10,8 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\FileHelper;
 use yii\web\UploadedFile;
 
-class FileUpload extends \app\models\base\FileUpload{
+class FileUpload extends \app\models\base\FileUpload
+{
 	const F_FILES = 'files';
 
 	public function behaviors()
@@ -52,7 +53,11 @@ class FileUpload extends \app\models\base\FileUpload{
 		}
 		$dirSlug = $dir;
 		if (!is_dir($dir) && (!$dir = self::getFolder($dirSlug))) {
-			throw new \Exception("Folder '$dir' not found");
+			if (!$dir) {
+				throw new \Exception("Folder for param '$dirSlug' is not set");
+			} else {
+				throw new \Exception("Folder '$dir' not found");
+			}
 		}
 		$fullPath = self::formPath($uniquePath, $dir);
 		if (!FileHelper::createDirectory(dirname($fullPath))) {
@@ -141,5 +146,4 @@ class FileUpload extends \app\models\base\FileUpload{
 	{
 		return join('.', array_filter([$this->name, $this->extension]));
 	}
-
 }
