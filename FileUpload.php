@@ -26,7 +26,7 @@ class FileUpload extends \app\models\base\FileUpload
 				'value'      => new Expression('NOW()'),
 			],
 			'author'    => [
-				'class'      => 'app\behaviors\Author',
+				'class'      => 'carono\components\behaviors\Author',
 				'attributes' => [
 					ActiveRecord::EVENT_BEFORE_INSERT => ['user_id'],
 				],
