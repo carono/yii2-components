@@ -102,7 +102,9 @@ class UserCommand extends Controller
 			$this->updateUser($user);
 			RoleManager::revokeAll($user["login"]);
 			if (isset($user["role"])) {
-				RoleManager::assign($user["role"], $user["login"]);
+				foreach ((array)$user["role"] as $role) {
+					RoleManager::assign($role, $user["login"]);
+				}
 			}
 		}
 	}
@@ -208,13 +210,15 @@ class UserCommand extends Controller
 	{
 		$f = function ($v) {
 			$name = basename($v);
-			if (class_exists($className = join('\\', ['app', 'modules', $name, $name]))) {
+			$file = basename(current(glob($v . DIRECTORY_SEPARATOR . '*.php')), '.php');
+			if (class_exists($className = join('\\', ['app', 'modules', $name, $file]))) {
 				return new $className($name);
 			} else {
 				return null;
 			}
 		};
-		$modules = array_filter(array_map($f, glob(\Yii::getAlias('@app/modules/*'))));
+		$dir = [\Yii::getAlias("@app"), "modules", "*"];
+		$modules = array_filter(array_map($f, glob(join(DIRECTORY_SEPARATOR, $dir))));
 		if ($id == '*') {
 			return array_merge($modules, [null]);
 		} else {
