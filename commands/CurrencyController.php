@@ -12,7 +12,7 @@ class CurrencyController extends Controller
 			if (!$model = Currency::find()->where(["code" => $currency["code"]])->one()) {
 				$model = new Currency();
 			}
-			$model->setAttributes($currency);
+			$model->setAttributes($currency, false);
 			$model->save(false);
 		}
 	}
