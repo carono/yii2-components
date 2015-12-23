@@ -1,7 +1,7 @@
 <?php
 namespace carono\components\commands;
 
-use app\models\Currency;
+use carono\components\Currency;
 use yii\console\Controller;
 
 class CurrencyController extends Controller
