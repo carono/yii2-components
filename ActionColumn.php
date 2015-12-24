@@ -36,33 +36,38 @@ class ActionColumn extends \yii\grid\ActionColumn
 		}
 	}
 
-	protected static function registerModifyScript($id, $iconSend, $iconRevert, $iconOk = "glyphicon-ok",
-		$iconError = 'glyphicon-remove', $iconWait = "glyphicon-time")
+	protected static function registerModifyScript($id, $send, $revert, $ok = "glyphicon-ok",
+		$error = 'glyphicon-remove', $wait = "glyphicon-time")
 	{
-		$iconSend = strpos($iconSend, 'fa-') !== false ? "fa " . $iconSend : "glyphicon " . $iconSend;
-		$iconRevert = strpos($iconRevert, 'fa-') !== false ? "fa " . $iconRevert : "glyphicon " . $iconRevert;
-		$iconOk = strpos($iconOk, 'fa-') !== false ? "fa " . $iconOk : "glyphicon " . $iconOk;
-		$iconError = strpos($iconError, 'fa-') !== false ? "fa " . $iconError : "glyphicon " . $iconError;
-		$iconWait = strpos($iconWait, 'fa-') !== false ? "fa " . $iconWait : "glyphicon " . $iconWait;
+		$send = strpos($send, 'fa-') !== false ? "fa " . $send : "glyphicon " . $send;
+		$revert = strpos($revert, 'fa-') !== false ? "fa " . $revert : "glyphicon " . $revert;
+		$ok = strpos($ok, 'fa-') !== false ? "fa " . $ok : "glyphicon " . $ok;
+		$error = strpos($error, 'fa-') !== false ? "fa " . $error : "glyphicon " . $error;
+		$wait = strpos($wait, 'fa-') !== false ? "fa " . $wait : "glyphicon " . $wait;
 		$script
 			= <<<EOT
     $('[ajax-link=$id]').on('click', function () {
     	var elem=$(this);
+    	if (!elem.attr('revert-url')){
+    		elem.attr('revert-url',elem.attr('href'));
+    	}
 		$.ajax({
 			type: "POST",
 			url: $(this).attr('href'),
 			dataType: 'json',
 			async: true,
 			success: function (data) {
-				if (elem.attr('revert-url') == elem.attr('href')){
-					elem.find('.glyphicon, .fa').attr('class','').addClass('$iconSend');
-					elem.attr('href', elem.attr('send-url'));
-				}else if(elem.attr('send-url') == elem.attr('href')){
-					elem.find('.glyphicon, .fa').attr('class','').addClass('$iconRevert');
+				if (elem.attr('revert')){
+					elem.removeAttr('revert');
+				}else{
+					elem.attr('revert', 1);
+				}
+				if (elem.attr('revert')){
+					elem.find('.glyphicon, .fa').attr('class','').addClass('$revert');
 					elem.attr('href', elem.attr('revert-url'));
 				}else{
-					elem.find('.glyphicon, .fa').attr('class','').addClass('$iconOk').off('click');
-					elem.on('click',function(){return false;})
+					elem.find('.glyphicon, .fa').attr('class','').addClass('$send');
+					elem.attr('href', elem.attr('send-url'));
 				}
 				if (data['message']) {
 					$(elem).parent().tooltip({
@@ -74,10 +79,10 @@ class ActionColumn extends \yii\grid\ActionColumn
 				}
 			},
 			beforeSend: function (){
-				elem.find('.glyphicon, .fa').attr('class','').addClass('$iconWait');
+				elem.find('.glyphicon, .fa').attr('class','').addClass('$wait');
 			},
 			error: function(jqXHR, textStatus, errorThrown){
-				elem.find('.glyphicon, .fa').attr('class','').addClass('$iconError');
+				elem.find('.glyphicon, .fa').attr('class','').addClass('$error');
 				if (jqXHR.responseJSON['message']) {
 					$(elem).parent().tooltip({
 						title:jqXHR.responseJSON['message'],
