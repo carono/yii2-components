@@ -36,7 +36,7 @@ class ActionColumn extends \yii\grid\ActionColumn
 		}
 	}
 
-	private static function registerModifyScript($id, $iconSend, $iconRevert, $iconOk = "glyphicon-ok",
+	protected static function registerModifyScript($id, $iconSend, $iconRevert, $iconOk = "glyphicon-ok",
 		$iconError = 'glyphicon-remove', $iconWait = "glyphicon-time")
 	{
 		$iconSend = strpos($iconSend, 'fa-') !== false ? "fa " . $iconSend : "glyphicon " . $iconSend;
