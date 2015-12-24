@@ -8,6 +8,25 @@ class ActionColumn extends \yii\grid\ActionColumn
 	public $text;
 	public $checkUrlAccess = true;
 
+	protected function renderDataCellContent($model, $key, $index)
+	{
+		return preg_replace_callback(
+			'/\\{([\w\-\/]+)\\}/', function ($matches) use ($model, $key, $index) {
+			$name = $matches[1];
+			if (isset($this->buttons[$name])) {
+				$url = $this->createUrl($name, $model, $key, $index);
+				if (!$this->checkUrlAccess || RoleManager::checkAccessByUrl($url)) {
+					return call_user_func($this->buttons[$name], $url, $model, $key);
+				} else {
+					return '';
+				}
+			} else {
+				return '';
+			}
+		}, $this->template
+		);
+	}
+
 	public function createUrl($action, $model, $key, $index)
 	{
 		if (method_exists($model, 'getUrl') && ($url = $model->getUrl($action))) {
