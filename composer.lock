@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "addca5c1375001c8beb280b6cda15f59",
-    "content-hash": "7c83f8f86d05bbfc9d5108991bf9df96",
+    "hash": "20f847c02c55ec444e3420b7cf0a5c42",
+    "content-hash": "0f101b57e6c894b3054e6385a418e941",
     "packages": [
         {
             "name": "2amigos/yii2-type-ahead-widget",
@@ -165,6 +165,31 @@
                 "jquery",
                 "library"
             ]
+        },
+        {
+            "name": "bower-asset/jquery-ui",
+            "version": "1.11.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/components/jqueryui.git",
+                "reference": "c34f8dbf3ba57b3784b93f26119f436c0e8288e1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/components/jqueryui/zipball/c34f8dbf3ba57b3784b93f26119f436c0e8288e1",
+                "reference": "c34f8dbf3ba57b3784b93f26119f436c0e8288e1",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/jquery": ">=1.6"
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": [
+                    "jquery-ui.js"
+                ],
+                "bower-asset-ignore": []
+            }
         },
         {
             "name": "bower-asset/jquery.inputmask",
@@ -409,22 +434,23 @@
         },
         {
             "name": "dmstr/yii2-db",
-            "version": "0.2.0",
+            "version": "0.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dmstr/yii2-db.git",
-                "reference": "066ce45be3e2e2b48286ef96250cdc53ae119075"
+                "reference": "49e3227665c1f38b8da5d8b7cbe29b9f5b3fbab0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dmstr/yii2-db/zipball/066ce45be3e2e2b48286ef96250cdc53ae119075",
-                "reference": "066ce45be3e2e2b48286ef96250cdc53ae119075",
+                "url": "https://api.github.com/repos/dmstr/yii2-db/zipball/49e3227665c1f38b8da5d8b7cbe29b9f5b3fbab0",
+                "reference": "49e3227665c1f38b8da5d8b7cbe29b9f5b3fbab0",
                 "shasum": ""
             },
             "type": "yii2-extension",
             "autoload": {
                 "psr-4": {
-                    "dmstr\\db\\": "db/"
+                    "dmstr\\db\\": "db/",
+                    "dmstr\\console\\": "console/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -444,20 +470,20 @@
                 "extension",
                 "yii2"
             ],
-            "time": "2015-01-13 03:03:29"
+            "time": "2015-12-21 10:01:49"
         },
         {
             "name": "dmstr/yii2-helpers",
-            "version": "0.0.3",
+            "version": "0.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dmstr/yii2-helpers.git",
-                "reference": "beb7362357f9f4210d2194c7b4eedc0603e351f7"
+                "reference": "7badd9c2152cef72b07020cecfea09aeb3854669"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dmstr/yii2-helpers/zipball/beb7362357f9f4210d2194c7b4eedc0603e351f7",
-                "reference": "beb7362357f9f4210d2194c7b4eedc0603e351f7",
+                "url": "https://api.github.com/repos/dmstr/yii2-helpers/zipball/7badd9c2152cef72b07020cecfea09aeb3854669",
+                "reference": "7badd9c2152cef72b07020cecfea09aeb3854669",
                 "shasum": ""
             },
             "require": {
@@ -466,7 +492,7 @@
             "type": "yii2-extension",
             "autoload": {
                 "psr-4": {
-                    "dmstr\\helpers\\": ""
+                    "dmstr\\helpers\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -477,6 +503,10 @@
                 {
                     "name": "Sergej Kunz",
                     "email": "s.kunz@herzogkommunikation.de"
+                },
+                {
+                    "name": "Tobias Munk",
+                    "email": "t.munk@herzogkommunikation.de"
                 }
             ],
             "description": "Yii2 Helpers",
@@ -484,7 +514,7 @@
                 "extension",
                 "yii2"
             ],
-            "time": "2015-07-02 08:38:46"
+            "time": "2015-12-21 10:11:28"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -669,16 +699,16 @@
         },
         {
             "name": "kartik-v/yii2-widget-select2",
-            "version": "v2.0.4",
+            "version": "v2.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-widget-select2.git",
-                "reference": "ffc59cef18864d773c79f3b2da2f34c948ff5648"
+                "reference": "f8475c5b895726e082a1614993c1aff64f77e367"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-widget-select2/zipball/ffc59cef18864d773c79f3b2da2f34c948ff5648",
-                "reference": "ffc59cef18864d773c79f3b2da2f34c948ff5648",
+                "url": "https://api.github.com/repos/kartik-v/yii2-widget-select2/zipball/f8475c5b895726e082a1614993c1aff64f77e367",
+                "reference": "f8475c5b895726e082a1614993c1aff64f77e367",
                 "shasum": ""
             },
             "require": {
@@ -713,7 +743,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2015-12-16 19:38:06"
+            "time": "2015-12-22 17:42:57"
         },
         {
             "name": "phpspec/php-diff",
@@ -1036,6 +1066,56 @@
                 "yii2"
             ],
             "time": "2015-05-10 22:09:31"
+        },
+        {
+            "name": "yiisoft/yii2-jui",
+            "version": "2.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yiisoft/yii2-jui.git",
+                "reference": "ce16f29cca654702c2ee500ccad9657a2d2e6a09"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yiisoft/yii2-jui/zipball/ce16f29cca654702c2ee500ccad9657a2d2e6a09",
+                "reference": "ce16f29cca654702c2ee500ccad9657a2d2e6a09",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/jquery-ui": "1.11.*@stable",
+                "yiisoft/yii2": ">=2.0.4"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                },
+                "asset-installer-paths": {
+                    "npm-asset-library": "vendor/npm",
+                    "bower-asset-library": "vendor/bower"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "yii\\jui\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Qiang Xue",
+                    "email": "qiang.xue@gmail.com"
+                }
+            ],
+            "description": "The Jquery UI extension for the Yii framework",
+            "keywords": [
+                "jQuery UI",
+                "yii2"
+            ],
+            "time": "2015-05-10 22:09:43"
         }
     ],
     "packages-dev": [
