@@ -125,6 +125,18 @@ class ActiveField extends BootstrapActiveField
 		);
 	}
 
+	public function date($options = [])
+	{
+		Html::addCssClass($options, 'form-control');
+		return $this->widget(
+			DatePicker::classname(), [
+				'language'   => 'ru',
+				'dateFormat' => 'dd.MM.yyyy',
+				'options'    => $options
+			]
+		);
+	}
+	
 	public function sex($options = [])
 	{
 		$items[0] = \Yii::t('yii', 'Female');
