@@ -98,7 +98,7 @@ abstract class BaseDumper
 
 	protected function isArchive($path)
 	{
-		return FileHelper::getMimeType($path) == "application/x-gzip";
+		return FileHelper::getMimeType($path) != "text/plain";
 	}
 
 	/**
