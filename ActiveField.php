@@ -2,10 +2,9 @@
 
 namespace carono\components;
 
-use dosamigos\typeahead\Bloodhound;
-use dosamigos\typeahead\TypeAhead;
 use kartik\depdrop\DepDrop;
 use kartik\select2\Select2;
+use kartik\typeahead\Typeahead;
 use yii\base\Model;
 use yii\bootstrap\ActiveField as BootstrapActiveField;
 use yii\bootstrap\Html as BaseHtml;
@@ -13,6 +12,7 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\jui\DatePicker;
+use yii\web\JsExpression;
 
 class ActiveField extends BootstrapActiveField
 {
@@ -92,39 +92,27 @@ class ActiveField extends BootstrapActiveField
 		return $models;
 	}
 
-	public function typeahead($url, $clientOptions = [])
+	public function typeahead($url, $options = [], $widgetOptions = [])
 	{
-
-		$engine = new Bloodhound(
+		Html::addCssClass($options, 'form-control');
+		$options = ArrayHelper::merge(
 			[
-				'name'          => 'countriesEngine',
-				'clientOptions' => [
-					'datumTokenizer' => new \yii\web\JsExpression("Bloodhound.tokenizers.obj.whitespace('name')"),
-					'queryTokenizer' => new \yii\web\JsExpression("Bloodhound.tokenizers.whitespace"),
-					'remote'         => [
-						'url'      => Url::to([$url, 'q' => 'QRY']),
-						'wildcard' => 'QRY'
+				'options' => $options,
+				'dataset' => [
+					[
+						'datumTokenizer' => new JsExpression("Bloodhound.tokenizers.obj.whitespace('name')"),
+						'queryTokenizer' => new JsExpression("Bloodhound.tokenizers.whitespace"),
+						'remote'         => [
+							'url'      => Url::to([$url, 'q' => 'QRY']),
+							'wildcard' => 'QRY',
+						],
+						'display'        => 'text',
 					]
-				]
-			]
+				],
+			], $widgetOptions
 		);
 
-		return $this->widget(
-			TypeAhead::className(), [
-				'options'       => ['class' => 'form-control'],
-				'engines'       => [$engine],
-				'clientOptions' => [
-					'highlight' => true,
-					'minLength' => 2
-				],
-				'dataSets'      => [
-					[
-						'displayKey' => 'text',
-						'source'     => $engine->getAdapterScript()
-					]
-				]
-			]
-		);
+		return $this->widget(Typeahead::className(), $options);
 	}
 
 	public function date($options = [])
@@ -138,7 +126,7 @@ class ActiveField extends BootstrapActiveField
 			]
 		);
 	}
-	
+
 	public function sex($options = [])
 	{
 		$items[0] = \Yii::t('yii', 'Female');
