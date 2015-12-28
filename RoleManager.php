@@ -134,7 +134,7 @@ class RoleManager
 		if ($action instanceof Action) {
 			$module = $module ? '*' : ArrayHelper::getValue($action->controller, 'module.id', 'basic');
 			$controller = $controller ? '*' : $action->controller->id;
-			$name = $name ? '*' : self::formActionName($action->id);
+			$name = $name ? '*' : self::formName($action->id);
 		} else {
 			$arr = explode(':', $action);
 			$module = $module ? '*' : ArrayHelper::getValue($arr, 0);
@@ -157,9 +157,9 @@ class RoleManager
 		return join(
 			":", array_filter(
 				[
-					ucwords($module),
-					ucwords($controller),
-					ucwords(self::formActionName($action)),
+					ucwords(self::formName($module)),
+					ucwords(self::formName($controller)),
+					ucwords(self::formName($action)),
 				]
 			)
 		);
@@ -272,7 +272,7 @@ class RoleManager
 		return self::auth()->hasChild($roleModel, $permissionModel);
 	}
 
-	public static function formActionName($str)
+	public static function formName($str)
 	{
 		return str_replace(' ', '', ucwords(implode(' ', explode('-', $str))));
 	}
