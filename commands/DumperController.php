@@ -34,7 +34,7 @@ class DumperController extends Controller
 				$this->backup = $this->dumper->backup = Yii::getAlias(\Yii::$app->params["dumperBackup"]);
 			}
 			if ($this->backup){
-				$this->dumper->backup = $this->backup;
+				$this->dumper->backup = Yii::getAlias($this->backup);
 			}
 			if ($this->dumper->backup && !is_dir($this->dumper->backup)) {
 				if ($this->dumper->backup) {
