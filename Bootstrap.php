@@ -24,11 +24,13 @@ class Bootstrap implements BootstrapInterface
 		/**
 		 * @var Module $gii
 		 */
+		\Yii::setAlias('@carono', '@vendor/carono/yii2-components');
 		if ($app instanceof \yii\console\Application) {
 			$commands = [
 				'city'     => 'CityController',
 				'currency' => 'CurrencyController',
-				'dumper'   => 'DumperController'
+				'dumper'   => 'DumperController',
+				'carono'   => 'CaronoController'
 			];
 			foreach ($commands as $name => $command) {
 				$name = file_exists(\Yii::getAlias("@app/commands/{$command}.php")) ? "carono" . ucfirst($name) : $name;
