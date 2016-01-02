@@ -3,6 +3,8 @@
 namespace carono\components;
 
 use yii\bootstrap\ActiveForm as BootstrapForm;
+use yii\bootstrap\Html;
+use yii\helpers\ArrayHelper;
 
 
 class ActiveForm extends BootstrapForm
@@ -19,5 +21,24 @@ class ActiveForm extends BootstrapForm
 	public function field($model, $attribute, $options = [])
 	{
 		return parent::field($model, $attribute, $options);
+	}
+
+	public static function begin2($config = [])
+	{
+		$error = Html::tag('div', '{error}', ["col-lg-8"]);
+		$input = Html::tag('div', '{input}', ["class" => "col-lg-4"]);
+		$template = "{label}\n" . $input . $error;
+		$config = ArrayHelper::merge(
+			[
+				'options'     => ['class' => 'form-horizontal'],
+				'fieldConfig' => [
+					'template'     => $template,
+					'labelOptions' => [
+						'class' => 'col-lg-3 control-label'
+					],
+				],
+			], $config
+		);
+		return self::begin($config);
 	}
 }
