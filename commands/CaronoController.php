@@ -154,17 +154,10 @@ class CaronoController extends InstallController
 						"inherit" => true
 					],
 					[
-						"id"       => "user_model",
-						"text"     => "Copy default User model",
-						"checked"  => false,
-						"disabled" => function () {
-							$file = Yii::getAlias('@app/models/User.php');
-							if (file_exists($file) && strpos(file_get_contents($file), 'carono User template')) {
-								return true;
-							}
-							return false;
-						},
-						"exec"     => function () {
+						"id"      => "user_model",
+						"text"    => "Copy default User model",
+						"checked" => false,
+						"exec"    => function () {
 							$source = [
 								\Yii::getAlias('@vendor'),
 								'carono',
