@@ -149,7 +149,7 @@ class User extends BaseUser implements \yii\web\IdentityInterface
 		if ($this->isNewRecord && !$this->activation_code) {
 			$this->activation_code = md5(\Yii::$app->security->generateRandomString());
 		}
-		if ($this->isNewRecord && !$this->token) {
+		if ($this->isNewRecord && !$this->access_token) {
 			$this->access_token = self::generateToken();
 		}
 		return !$this->hasErrors();
