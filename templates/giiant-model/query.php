@@ -18,6 +18,8 @@ echo "<?php\n";
 
 namespace <?= $generator->queryNs ?>;
 
+use yii\data\Sort;
+use yii\data\ActiveDataProvider;
 /**
  * This is the ActiveQuery class for [[<?= $modelFullClassName ?>]].
  *
@@ -47,5 +49,24 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->queryBaseClass, '\\
     public function one($db = null)
     {
         return parent::one($db);
+    }
+
+    public function search($filter = null)
+    {
+        $this->filter($filter);
+        $sort = new Sort();
+        return new ActiveDataProvider(
+            [
+                'query' => $this,
+                'sort'  => $sort
+            ]
+        );
+    }
+
+    public function filter($model)
+    {
+		if ($model){
+        }
+        return $this;
     }
 }
