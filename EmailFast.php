@@ -12,11 +12,15 @@ class EmailFast
 		/**
 		 * @var $m BaseMailer
 		 */
-		$noReply = \Yii::$app->params["noReplyEmail"];
-		if (!\Yii::$app->params["master"]) {
-			$subject .= " [" . join(', ', (array)$to) . "]";
-			$to = ArrayHelper::getValue(CurrentUser::get(), 'email');
+		if (!isset(\Yii::$app->params["noReplyEmail"])){
+			$noReply = 'noreply@localhost';
+		}else {
+			$noReply = \Yii::$app->params["noReplyEmail"];
 		}
+//		if (!\Yii::$app->params["master"]) {
+//			$subject .= " [" . join(', ', (array)$to) . "]";
+//			$to = ArrayHelper::getValue(CurrentUser::get(), 'email');
+//		}
 		$m = \Yii::$app->mailer;
 		if (strlen($template) >= 10) {
 			$html = $m->getView()->render($m->htmlLayout, ['content' => $template], $m);

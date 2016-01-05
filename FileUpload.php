@@ -10,6 +10,12 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\FileHelper;
 use yii\web\UploadedFile;
 
+/**
+ * Class FileUpload
+ *
+ * @package carono\components
+ * @property string $fullname
+ */
 class FileUpload extends \app\models\base\FileUpload
 {
 	const F_FILES = 'files';
