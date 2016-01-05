@@ -19,6 +19,7 @@ use yii\web\UploadedFile;
 class FileUpload extends \app\models\base\FileUpload
 {
 	const F_FILES = 'files';
+	public $eraseOnDelete = true;
 
 	public function behaviors()
 	{
@@ -38,6 +39,14 @@ class FileUpload extends \app\models\base\FileUpload
 				],
 			],
 		];
+	}
+
+	public function beforeDelete()
+	{
+		if ($this->eraseOnDelete && $this->fileExist()) {
+			$this->deleteFile();
+		}
+		return parent::beforeDelete();
 	}
 
 	public static function upload($file, $name = null, $dir = self::F_FILES, $slug = null, $data = null, $delete = true)
