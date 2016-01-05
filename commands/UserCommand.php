@@ -167,6 +167,11 @@ class UserCommand extends Controller
 						$actions[] = new InlineAction($name, $controller, $method);
 					}
 				}
+				if (method_exists($controller, 'actions')) {
+					foreach ($controller->actions() as $name => $value) {
+						$actions[] = new InlineAction($name, $controller, $value);
+					}
+				}
 			} elseif (method_exists($controller, $method = 'action' . $id)) {
 				$actions[] = new InlineAction($id, $controller, $method);
 			}
