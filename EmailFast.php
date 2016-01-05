@@ -12,9 +12,9 @@ class EmailFast
 		/**
 		 * @var $m BaseMailer
 		 */
-		if (!isset(\Yii::$app->params["noReplyEmail"])){
+		if (!isset(\Yii::$app->params["noReplyEmail"])) {
 			$noReply = 'noreply@localhost';
-		}else {
+		} else {
 			$noReply = \Yii::$app->params["noReplyEmail"];
 		}
 //		if (!\Yii::$app->params["master"]) {
@@ -22,7 +22,7 @@ class EmailFast
 //			$to = ArrayHelper::getValue(CurrentUser::get(), 'email');
 //		}
 		$m = \Yii::$app->mailer;
-		if (strlen($template) >= 10) {
+		if (!self::viewExist($template)) {
 			$html = $m->getView()->render($m->htmlLayout, ['content' => $template], $m);
 			$sender = \Yii::$app->mailer->compose()->setHtmlBody($html);
 		} else {
@@ -43,5 +43,15 @@ class EmailFast
 		foreach ((array)$to as $email) {
 			$sender->setTo($email)->setFrom($noReply)->setSubject($subject)->send();
 		}
+	}
+
+	private static function viewExist($view)
+	{
+		if (strlen($view) <= 255) {
+			if (file_exists(\Yii::getAlias("@app/mail") . '/' . $view . ".php")) {
+				return true;
+			}
+		}
+		return false;
 	}
 }
