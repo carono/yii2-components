@@ -7,13 +7,14 @@ class ActionColumn extends \yii\grid\ActionColumn
 {
 	public $text;
 	public $checkUrlAccess = true;
+	public $visibleButton;
 
 	protected function renderDataCellContent($model, $key, $index)
 	{
 		return preg_replace_callback(
 			'/\\{([\w\-\/]+)\\}/', function ($matches) use ($model, $key, $index) {
 			$name = $matches[1];
-			if (isset($this->buttons[$name])) {
+			if (isset($this->buttons[$name]) && $this->buttonIsVisible($name, $model, $key, $index)) {
 				$url = $this->createUrl($name, $model, $key, $index);
 				if (!$this->checkUrlAccess || RoleManager::checkAccessByUrl($url)) {
 					return call_user_func($this->buttons[$name], $url, $model, $key);
@@ -25,6 +26,15 @@ class ActionColumn extends \yii\grid\ActionColumn
 			}
 		}, $this->template
 		);
+	}
+
+	public function buttonIsVisible($name, $model, $key, $index)
+	{
+		if ($this->visibleButton) {
+			return call_user_func($this->visibleButton, $name, $model, $key, $index);
+		} else {
+			return true;
+		}
 	}
 
 	public function createUrl($action, $model, $key, $index)
