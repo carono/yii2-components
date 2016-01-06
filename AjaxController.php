@@ -1,12 +1,6 @@
 <?php
-/**
- * User: Карно
- * Date: 16.10.2015
- * Time: 2:29
- */
 
 namespace carono\components;
-
 
 use yii\helpers\Json;
 
@@ -19,13 +13,25 @@ class AjaxController extends \yii\web\Controller
 	public $result = [];
 	public $message = '';
 
+	public function behaviors()
+	{
+		return [
+			[
+				'class'   => 'yii\filters\ContentNegotiator',
+				'formats' => [
+					'application/json' => \yii\web\Response::FORMAT_JSON,
+				],
+			],
+		];
+	}
+
 	protected function _out($result)
 	{
 		ob_clean();
 		if (!is_string($result)) {
 			$result = Json::encode($result);
 		}
-		die($result);
+		echo $result;
 	}
 
 	public function runAction($route, $params = [])
@@ -41,7 +47,6 @@ class AjaxController extends \yii\web\Controller
 	{
 		self::_out($result ? $result : $this->out($this->code, $this->message, $this->result));
 	}
-
 
 	protected function out($code, $message = '', $result = [])
 	{
