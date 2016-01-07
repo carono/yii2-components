@@ -30,6 +30,11 @@ class Author extends AttributeBehavior
 	 */
 	protected function getValue($event)
 	{
+		if ($event->name == BaseActiveRecord::EVENT_BEFORE_INSERT) {
+			if ($value = $event->sender->{$this->createdAtAttribute}) {
+				return $value;
+			}
+		}
 		return CurrentUser::getId($this->asRobot, $this->robot);
 	}
 }
