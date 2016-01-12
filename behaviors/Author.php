@@ -4,6 +4,7 @@ namespace carono\components\behaviors;
 use carono\components\CurrentUser;
 use yii\behaviors\AttributeBehavior;
 use yii\db\BaseActiveRecord;
+use yii\helpers\ArrayHelper;
 
 class Author extends AttributeBehavior
 {
@@ -31,7 +32,13 @@ class Author extends AttributeBehavior
 	protected function getValue($event)
 	{
 		if ($event->name == BaseActiveRecord::EVENT_BEFORE_INSERT) {
-			if ($value = $event->sender->{$this->createdAtAttribute}) {
+			$attr = ArrayHelper::getValue(
+				$this->attributes, BaseActiveRecord::EVENT_BEFORE_INSERT, $this->createdAtAttribute
+			);
+			if (is_array($attr)) {
+				$attr = current($attr);
+			}
+			if ($value = $event->sender->{$attr}) {
 				return $value;
 			}
 		}
