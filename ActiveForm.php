@@ -25,7 +25,7 @@ class ActiveForm extends BootstrapForm
 
 	public static function begin2($config = [])
 	{
-		$error = Html::tag('div', '{error}', ["col-lg-8"]);
+		$error = Html::tag('div', '{error}', ["class" => "col-lg-8"]);
 		$input = Html::tag('div', '{input}', ["class" => "col-lg-4"]);
 		$template = "{label}\n" . $input . $error;
 		$config = ArrayHelper::merge(
