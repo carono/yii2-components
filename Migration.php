@@ -197,17 +197,17 @@ class Migration extends BaseMigration
 
 	public function downTables($array = [])
 	{
-		$this->_applyTables(true, $array);
+		$this->_applyTables(true, $array ? $array : $this->tables());
 	}
 
 	public function upTables($array = [])
 	{
-		$this->_applyTables(false, $array);
+		$this->_applyTables(false, $array ? $array : $this->tables());
 	}
 
 	protected function _applyTables($revert = false, $array = [])
 	{
-		$tables = $revert ? array_reverse($this->tables($array)) : $this->tables($array);
+		$tables = $revert ? array_reverse($this->tables($array)) : $array;
 		while (list($key, $data) = each($tables)) {
 			$name = is_string($key) ? $key : $data[0];
 			$columns = is_string($key) ? $data : $data[1];
