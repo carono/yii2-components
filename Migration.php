@@ -110,12 +110,12 @@ class Migration extends BaseMigration
 
 	public function downNewColumns($array = [])
 	{
-		$this->_applyNewColumns(true, $array);
+		$this->_applyNewColumns(true, $array ? $array : $this->newColumns());
 	}
 
 	public function upNewColumns($array = [])
 	{
-		$this->_applyNewColumns(false, $array);
+		$this->_applyNewColumns(false, $array ? $array : $this->newColumns());
 	}
 
 	private static function formPvTableName($sourceTable, $targetTable)
@@ -207,7 +207,7 @@ class Migration extends BaseMigration
 
 	protected function _applyTables($revert = false, $array = [])
 	{
-		$tables = $revert ? array_reverse($this->tables($array)) : $array;
+		$tables = $revert ? array_reverse($array) : $array;
 		while (list($key, $data) = each($tables)) {
 			$name = is_string($key) ? $key : $data[0];
 			$columns = is_string($key) ? $data : $data[1];
