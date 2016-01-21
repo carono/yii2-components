@@ -39,7 +39,7 @@ class AjaxController extends \yii\web\Controller
 		try {
 			parent::runAction($route, $params);
 		} catch (\Exception $e) {
-			self::_out($this->out($e->getCode(), $e->getMessage()));
+			self::_out($this->out($e->getCode() ? $e->getCode() : 1, $e->getMessage()));
 		}
 	}
 
