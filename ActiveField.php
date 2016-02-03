@@ -139,4 +139,16 @@ class ActiveField extends BootstrapActiveField
 		$items = [\Yii::t('yii', 'No', [], 'ru'), \Yii::t('yii', 'Yes', [], 'ru')];
 		return parent::dropDownList($items, $options);
 	}
+
+	public function bitMask($items, $options = [])
+	{
+		$result = [];
+		foreach ($items as $id => $name) {
+			if ($this->model->{$this->attribute} & (1 << (int)$id - 1)) {
+				$result[] = $id;
+			}
+		}
+		$this->model->{$this->attribute} = $result;
+		return parent::checkboxList($items, $options);
+	}
 }
