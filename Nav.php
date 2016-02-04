@@ -40,8 +40,10 @@ class Nav extends \yii\bootstrap\Nav
 	protected function checkItemAccess($item)
 	{
 		if (isset($item["url"])) {
-			if (!RoleManager::checkAccessByUrl($item["url"])) {
-				return false;
+			if ($item["url"] != "#" && (!isset($item["checkAccess"])) || $item["checkAccess"]) {
+				if (!RoleManager::checkAccessByUrl($item["url"])) {
+					return false;
+				}
 			}
 		}
 		return true;
