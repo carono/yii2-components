@@ -39,7 +39,7 @@ class ActionColumn extends \yii\grid\ActionColumn
 
 	public function createUrl($action, $model, $key, $index)
 	{
-		if (method_exists($model, 'getUrl') && ($url = $model->getUrl($action))) {
+		if (method_exists($model, 'getUrl') && ($url = $model->getUrl($action)) && !$this->urlCreator) {
 			return $url;
 		} else {
 			return parent::createUrl($action, $model, $key, $index);
