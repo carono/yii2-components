@@ -68,6 +68,12 @@ class CaronoController extends InstallController
 				"exec"     => self::migrate('@carono/migrations/m151127_104851_file_upload_table'),
 			],
 			[
+				"text"     => "Create 'company' table (RUS)",
+				"checked"  => true,
+				"disabled" => (bool)Yii::$app->db->getTableSchema('company'),
+				"exec"     => self::migrate('@carono/migrations/m160222_202733_company'),
+			],
+			[
 				"text"     => "Create 'User' table",
 				"id"       => "user",
 				"checked"  => true,
