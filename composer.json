@@ -19,7 +19,8 @@
     "kartik-v/yii2-widget-depdrop": "^1.0",
     "kartik-v/yii2-widget-select2": "^2.0",
     "yiisoft/yii2-jui": "^2.0",
-    "kartik-v/yii2-widget-typeahead": "^1.0"
+    "kartik-v/yii2-widget-typeahead": "^1.0",
+    "kartik-v/yii2-widget-datetimepicker": "*"
   },
   "require-dev": {
     "carono/murl": "*",

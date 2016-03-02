@@ -127,6 +127,23 @@ class ActiveField extends BootstrapActiveField
 		);
 	}
 
+    public function dateTime($options = [])
+    {
+        Html::addCssClass($options, 'form-control');
+        return $this->widget(
+            DateTimePicker::classname(), [
+                'options'       => ['placeholder' => 'Select operating time ...'],
+                'convertFormat' => true,
+                'pluginOptions' => ArrayHelper::merge(
+                    [
+                        'format'         => 'dd.MM.yyyy H:i',
+                        'todayHighlight' => true
+                    ], $options
+                )
+            ]
+        );
+    }
+
 	public function sex($options = [])
 	{
 		$items[0] = \Yii::t('yii', 'Female');
