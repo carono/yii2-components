@@ -2,6 +2,7 @@
 
 namespace carono\components;
 
+use kartik\datetime\DateTimePicker;
 use kartik\depdrop\DepDrop;
 use kartik\select2\Select2;
 use kartik\typeahead\Typeahead;
