@@ -20,7 +20,8 @@
     "kartik-v/yii2-widget-select2": "^2.0",
     "yiisoft/yii2-jui": "^2.0",
     "kartik-v/yii2-widget-typeahead": "^1.0",
-    "kartik-v/yii2-widget-datetimepicker": "*"
+    "kartik-v/yii2-widget-datetimepicker": "*",
+    "2amigos/yii2-transliterator-helper": "^0.1.0"
   },
   "require-dev": {
     "carono/murl": "*",
