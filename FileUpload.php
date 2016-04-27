@@ -18,7 +18,7 @@ use yii\web\UploadedFile;
  */
 class FileUpload extends \app\models\base\FileUpload
 {
-    const F_FILES = 'files';
+    const F_FILES = '@app/files';
     public $eraseOnDelete = true;
 
     public function behaviors()
@@ -146,9 +146,9 @@ class FileUpload extends \app\models\base\FileUpload
         if (is_dir($param)) {
             return $param;
         } else {
-            return Yii::getAlias(
-                ArrayHelper::getValue(Yii::$app->params, $param, @Yii::$app->params["fileUploadFolder"])
-            );
+            $default = ArrayHelper::getValue(Yii::$app->params, 'fileUploadFolder', $param);
+            $inParam = ArrayHelper::getValue(Yii::$app->params, $param, $default);
+            return Yii::getAlias($inParam);
         }
     }
 
