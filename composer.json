@@ -21,7 +21,8 @@
     "yiisoft/yii2-jui": "^2.0",
     "kartik-v/yii2-widget-typeahead": "^1.0",
     "kartik-v/yii2-widget-datetimepicker": "*",
-    "2amigos/yii2-transliterator-helper": "^0.1.0"
+    "2amigos/yii2-transliterator-helper": "^0.1.0",
+	"mauricesvay/php-facedetection": "^0.1.0"
   },
   "require-dev": {
     "carono/murl": "*",
