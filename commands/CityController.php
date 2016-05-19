@@ -33,7 +33,7 @@ class CityController extends Controller
 			$model = new FederalDistrict();
 			$model->name = $name;
 			$model->setAttributes($attr);
-			$model->save();
+			$model->save(false);
 		}
 		return $model;
 	}
