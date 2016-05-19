@@ -44,7 +44,7 @@ class CityController extends Controller
 			$model = new Region();
 			$model->name = $name;
 			$model->setAttributes($attr);
-			$model->save();
+			$model->save(false);
 		}
 		return $model;
 	}
@@ -55,7 +55,7 @@ class CityController extends Controller
 			$model = new City();
 			$model->name = $name;
 			$model->setAttributes($attr);
-			$model->save();
+			$model->save(false);
 		}
 		return $model;
 	}
