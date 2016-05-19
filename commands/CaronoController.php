@@ -104,7 +104,7 @@ class CaronoController extends InstallController
                             'registration_date' => $command->date(),
                         ]
                     ];
-                    if ($item->findById('cities')->value) {
+                    if ($item->owner->findById('cities')->value) {
                         $table["address"]["city_id"] = [$command->integer(), 'city', 'id'];
                     }
                     if ($item->findById('photos')->value) {
