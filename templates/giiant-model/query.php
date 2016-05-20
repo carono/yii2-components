@@ -30,7 +30,7 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->queryBaseClass, '\\
 
 //    public function active()
 //    {
-//        $this->andWhere(['status' => true]);
+//        $this->andWhere(['active' => true]);
 //        return $this;
 //    }
 
