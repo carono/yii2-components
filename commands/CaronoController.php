@@ -87,6 +87,7 @@ class CaronoController extends InstallController
                             'login'           => $command->string(),
                             'hash'            => $command->string(),
                             'activation_code' => $command->string(),
+                            'recover_code'    => $command->string(),
                             'last_logon'      => $command->dateTime(),
                             'access_token'    => $command->string(),
                             'created'         => $command->dateTime(),
