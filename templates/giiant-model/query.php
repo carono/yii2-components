@@ -36,7 +36,7 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->queryBaseClass, '\\
 
 //    public function my($user = null)
 //    {
-//        $this->andWhere(['user_id' => carono\components\CurrentUser::user($user)->getId()]);
+//        $this->andWhere(['user_id' => \carono\components\CurrentUser::user($user)->getId()]);
 //        return $this;
 //    }
 
