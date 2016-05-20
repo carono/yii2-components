@@ -27,11 +27,18 @@ use yii\data\ActiveDataProvider;
  */
 class <?= $className ?> extends <?= '\\' . ltrim($generator->queryBaseClass, '\\') . "\n" ?>
 {
-    /*public function active()
-    {
-        $this->andWhere('[[status]]=1');
-        return $this;
-    }*/
+
+//    public function active()
+//    {
+//        $this->andWhere(['status' => true]);
+//        return $this;
+//    }
+
+//    public function my($user = null)
+//    {
+//        $this->andWhere(['user_id' => carono\components\CurrentUser::user($user)->getId()]);
+//        return $this;
+//    }
 
     /**
      * @inheritdoc
@@ -51,7 +58,7 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->queryBaseClass, '\\
         return parent::one($db);
     }
 
-    public function search($filter = null)
+    public function search($filter = null, $options = [])
     {
         $this->filter($filter);
         $sort = new Sort();
