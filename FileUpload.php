@@ -118,6 +118,15 @@ class FileUpload extends \app\models\base\FileUpload
         }
     }
 
+    public function isImage()
+    {
+        if (($mime = $this->mime_type) || ($mime = FileHelper::getMimeType($this->getFullPath()))) {
+            return strpos($mime, 'image') === 1;
+        } else {
+            return null;
+        }
+    }
+
     public function getFullPath()
     {
         return self::formPath($this->path, self::getFolder($this->folder));
