@@ -64,15 +64,15 @@ class ActiveField extends BootstrapActiveField
         );
     }
 
-    public function dropDownList($items, $options = [], $field = 'name')
+    public function dropDownList($items = null, $options = [], $field = 'name')
     {
-        $models = self::modelsToOptions($items, $field);
+        $models = self::modelsToOptions(is_null($items) ? $this->model->className() : $items, $field);
         return parent::dropDownList($models, $options);
     }
 
-    public function dropDownList2($items, $options = [], $field = 'name')
+    public function dropDownList2($items = null, $options = [], $field = 'name')
     {
-        $models = self::modelsToOptions($items, $field);
+        $models = self::modelsToOptions(is_null($items) ? $this->model->className() : $items, $field);
         $settings = [
             'data'      => $models,
             "model"     => $this->model,
