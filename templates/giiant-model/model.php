@@ -54,7 +54,7 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
         echo "use {$traits};";
     }
 ?>
-<?= $relationClasses ? 'protected $_relationClasses = ['. $relationClasses .'];': ''?>
+protected $_relationClasses = <?= $relationClasses ? '['. $relationClasses .']': '[]'?>;
 
 <?php
 if(!empty($enum)){
@@ -133,7 +133,7 @@ if(!empty($enum)){
 <?php endforeach; ?>
     public function getRelationClass($attribute)
     {
-        return isset($this->_relationClasses[$attribute]) ? $this->_relationClasses[$attribute] : false;
+        return isset($this->_relationClasses[$attribute]) ? $this->_relationClasses[$attribute] : null;
     }
 <?php if (isset($translation)): ?>
     /**
