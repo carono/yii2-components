@@ -66,7 +66,10 @@ class ActiveField extends BootstrapActiveField
 
     public function dropDownList($items = null, $options = [], $field = 'name')
     {
-        $models = self::modelsToOptions(is_null($items) ? $this->model->className() : $items, $field);
+        if (is_null($items) && method_exists($this->model, 'getRelationClass')) {
+            $items = $this->model->getRelationClass($this->attribute);
+        }
+        $models = self::modelsToOptions($items, $field);
         return parent::dropDownList($models, $options);
     }
 
@@ -85,6 +88,9 @@ class ActiveField extends BootstrapActiveField
 
     public static function modelsToOptions($items, $field = 'name')
     {
+        if (is_null($items)) {
+            $items = [];
+        }
         $models = $items;
         if (is_string($items)) {
             $items = $items::find()->all();

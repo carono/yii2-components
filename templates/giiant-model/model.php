@@ -12,7 +12,14 @@
  * @var string[] $rules list of validation rules
  * @var array $relations list of relations (name => relation declaration)
  */
-
+$relationClasses = [];
+foreach ($relations as $name => $relation){
+    preg_match('/.*hasOne.*\[.*\s=>\s\'(.*)\'\]/',$relation[0],$m);
+    if (isset($m[1])) {
+        $relationClasses[] = "'$m[1]'=>'{$generator->ns}" . '\\' . "{$relation[1]}'";
+    }
+}
+$relationClasses = join(",\r",$relationClasses );
 echo "<?php\n";
 ?>
 
@@ -47,7 +54,7 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
         echo "use {$traits};";
     }
 ?>
-
+<?= $relationClasses ? 'protected $_relationClasses = ['. $relationClasses .'];': ''?>
 
 <?php
 if(!empty($enum)){
@@ -124,7 +131,10 @@ if(!empty($enum)){
         <?= $relation[0] . "\n" ?>
     }
 <?php endforeach; ?>
-
+    public function getRelationClass($attribute)
+    {
+        return isset($this->_relationClasses[$attribute]) ? $this->_relationClasses[$attribute] : false;
+    }
 <?php if (isset($translation)): ?>
     /**
      * @return \yii\db\ActiveQuery
