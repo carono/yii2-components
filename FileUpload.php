@@ -97,10 +97,11 @@ class FileUpload extends \app\models\base\FileUpload
         $fileUpload = new self();
 
         //Фиск для сессии, при аяксовом запросе
-        Yii::$app->session->open();
-        $fileUpload->session = Yii::$app->session->getIsActive() ? Yii::$app->session->getId() : null;
-        Yii::$app->session->close();
-
+        if (isset(Yii::$app->session)) {
+            Yii::$app->session->open();
+            $fileUpload->session = Yii::$app->session->getIsActive() ? Yii::$app->session->getId() : null;
+            Yii::$app->session->close();
+        }
         $fileUpload->user_id = CurrentUser::getId(1);
         $fileUpload->data = !is_null($data) ? json_encode($data) : null;
         $fileUpload->mime_type = FileHelper::getMimeType($fullPath);
