@@ -36,14 +36,14 @@ class DumperController extends Controller
 			if ($this->backup){
 				$this->dumper->backup = Yii::getAlias($this->backup);
 			}
-			if ($this->dumper->backup && !is_dir($this->dumper->backup)) {
-				if ($this->dumper->backup) {
-					echo "Backup dir is not exist: " . $this->dumper->backup;
-				} else {
-					echo "Backup dir is not exist, set Yii::params[dumperBackup]";
-				}
-				exit;
-			}
+//			if ($this->dumper->backup && !is_dir($this->dumper->backup)) {
+//				if ($this->dumper->backup) {
+//					echo "Backup dir is not exist: " . $this->dumper->backup;
+//				} else {
+//					echo "Backup dir is not exist, set Yii::params[dumperBackup]";
+//				}
+//				exit;
+//			}
 			$this->dumper->user = $this->user;
 			$this->dumper->password = $this->password;
 			$this->dumper->init();
