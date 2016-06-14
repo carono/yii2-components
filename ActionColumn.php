@@ -5,57 +5,83 @@ use Yii;
 
 class ActionColumn extends \yii\grid\ActionColumn
 {
-	public $text;
-	public $checkUrlAccess = true;
-	public $visibleButton;
+    public $text;
+    public $checkUrlAccess = true;
+    public $visibleButton;
 
-	protected function renderDataCellContent($model, $key, $index)
-	{
-		return preg_replace_callback(
-			'/\\{([\w\-\/]+)\\}/', function ($matches) use ($model, $key, $index) {
-			$name = $matches[1];
-			if (isset($this->buttons[$name]) && $this->buttonIsVisible($name, $model, $key, $index)) {
-				$url = $this->createUrl($name, $model, $key, $index);
-				if (!$this->checkUrlAccess || RoleManager::checkAccessByUrl($url)) {
-					return call_user_func($this->buttons[$name], $url, $model, $key);
-				} else {
-					return '';
-				}
-			} else {
-				return '';
-			}
-		}, $this->template
-		);
-	}
+    public function init()
+    {
+        parent::init();
+        $methods = get_class_methods($this);
+        preg_match_all('/button(\w+)/', join(" ", $methods), $m);
+        foreach ($m[1] as $button) {
+            $this->buttons[strtolower($button)] = function ($url, $model, $key) use ($button) {
+                $result = call_user_func_array([$this, "button" . $button], [$url, $model, $key]);
+                if ($result instanceof ButtonColumn) {
+                    return $result->asLink();
+                } else {
+                    return $result;
+                }
+            };
+        }
+    }
 
-	public function buttonIsVisible($name, $model, $key, $index)
-	{
-		if ($this->visibleButton) {
-			return call_user_func($this->visibleButton, $name, $model, $key, $index);
-		} else {
-			return true;
-		}
-	}
+    public function buttonUpload($url, $model, $key)
+    {
+        $button = new ButtonColumn();
+        $button->icon = "glyphicon glyphicon-upload";
+        $button->title = "Загрузить";
+        $button->url = $url;
+        return $button;
+    }
 
-	public function createUrl($action, $model, $key, $index)
-	{
-		if (method_exists($model, 'getUrl') && ($url = $model->getUrl($action)) && !$this->urlCreator) {
-			return $url;
-		} else {
-			return parent::createUrl($action, $model, $key, $index);
-		}
-	}
+    protected function renderDataCellContent($model, $key, $index)
+    {
+        return preg_replace_callback(
+            '/\\{([\w\-\/]+)\\}/', function ($matches) use ($model, $key, $index) {
+            $name = $matches[1];
+            if (isset($this->buttons[$name]) && $this->buttonIsVisible($name, $model, $key, $index)) {
+                $url = $this->createUrl($name, $model, $key, $index);
+                if (!$this->checkUrlAccess || RoleManager::checkAccessByUrl($url)) {
+                    return call_user_func($this->buttons[$name], $url, $model, $key);
+                } else {
+                    return '';
+                }
+            } else {
+                return '';
+            }
+        }, $this->template
+        );
+    }
 
-	protected static function registerModifyScript($id, $send, $revert, $ok = "glyphicon-ok",
-		$error = 'glyphicon-remove', $wait = "glyphicon-time")
-	{
-		$send = strpos($send, 'fa-') !== false ? "fa " . $send : "glyphicon " . $send;
-		$revert = strpos($revert, 'fa-') !== false ? "fa " . $revert : "glyphicon " . $revert;
-		$ok = strpos($ok, 'fa-') !== false ? "fa " . $ok : "glyphicon " . $ok;
-		$error = strpos($error, 'fa-') !== false ? "fa " . $error : "glyphicon " . $error;
-		$wait = strpos($wait, 'fa-') !== false ? "fa " . $wait : "glyphicon " . $wait;
-		$script
-			= <<<EOT
+    public function buttonIsVisible($name, $model, $key, $index)
+    {
+        if ($this->visibleButton) {
+            return call_user_func($this->visibleButton, $name, $model, $key, $index);
+        } else {
+            return true;
+        }
+    }
+
+    public function createUrl($action, $model, $key, $index)
+    {
+        if (method_exists($model, 'getUrl') && ($url = $model->getUrl($action)) && !$this->urlCreator) {
+            return $url;
+        } else {
+            return parent::createUrl($action, $model, $key, $index);
+        }
+    }
+
+    protected static function registerModifyScript($id, $send, $revert, $ok = "glyphicon-ok",
+        $error = 'glyphicon-remove', $wait = "glyphicon-time")
+    {
+        $send = strpos($send, 'fa-') !== false ? "fa " . $send : "glyphicon " . $send;
+        $revert = strpos($revert, 'fa-') !== false ? "fa " . $revert : "glyphicon " . $revert;
+        $ok = strpos($ok, 'fa-') !== false ? "fa " . $ok : "glyphicon " . $ok;
+        $error = strpos($error, 'fa-') !== false ? "fa " . $error : "glyphicon " . $error;
+        $wait = strpos($wait, 'fa-') !== false ? "fa " . $wait : "glyphicon " . $wait;
+        $script
+            = <<<EOT
     $('[ajax-link=$id]').on('click', function () {
     	var elem=$(this);
     	if (!elem.attr('revert-url')){
@@ -106,6 +132,6 @@ class ActionColumn extends \yii\grid\ActionColumn
         return false;
     })
 EOT;
-		Yii::$app->getView()->registerJs($script);
-	}
+        Yii::$app->getView()->registerJs($script);
+    }
 }
