@@ -4,36 +4,35 @@ namespace carono\components\behaviors;
 
 
 use yii\base\Behavior;
+use yii\base\Model;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
-* @method mixed getStoragePivots($pivotClass)
-* @method mixed getPivotAttribute($pivotClass, $column, $condition = [])
-* @method mixed updatePivotAttribute($pivotClass, $value, $column = null, $condition = [])
-* @method void storagePivots($values, $pivotClass, $class)
-* @method mixed addPivot($model, $pivotClass)
-* 
-*/
+ * @method mixed getStoragePivots($pivotClass)
+ * @method mixed getPivotAttribute($pivotClass, $column, $condition = [])
+ * @method mixed updatePivotAttribute($pivotClass, $value, $column = null, $condition = [])
+ * @method void clearStorage($pivotClass)
+ * @method void storagePivots($models, $pivotClass, $modelClass = null)
+ * @method void storagePivot($model, $pivotClass, $modelClass = null)
+ * @method void savePivots($clear = false)
+ * @method mixed addPivot($model, $pivotClass)
+ */
 
+/**
+ * Class PivotBehavior
+ *
+ * @package carono\components\behaviors
+ */
 class PivotBehavior extends Behavior
 {
     protected $_storage = [];
 
-    protected function getMainPk()
-    {
-        return $this->owner->{$this->owner->primaryKey()[0]};
-    }
-
-    protected function getMainPkField()
-    {
-        return $this->owner->tableName() . "_id";
-    }
-
-    public function clearPivot($class)
+    public function deletePivots($class)
     {
         return $class::deleteAll([$this->getMainPkField() => $this->getMainPk()]);
     }
+
 
     public function getStoragePivots($pivotClass)
     {
@@ -75,20 +74,43 @@ class PivotBehavior extends Behavior
         $pivotClass::updateAll([$column => $value], $condition);
     }
 
-    public function storagePivots($values, $pivotClass, $class)
+    public function clearStorage($pivotClass)
     {
-        if (!is_array($values)) {
-            $values = [$values];
-        } else {
-            $values = array_filter($values);
+        unset($this->_storage[$pivotClass]);
+    }
+
+    public function storagePivots($models, $pivotClass, $modelClass = null)
+    {
+        if (!is_array($models)) {
+            $models = [$models];
         }
-        foreach ($values as $value) {
-            if ($model = $class::findOne($value)) {
-                $this->_storage[$pivotClass][] = $model;
+        foreach ($models as $model) {
+            $this->storagePivot($model, $pivotClass, $modelClass);
+        }
+    }
+
+    public function storagePivot($model, $pivotClass, $modelClass = null)
+    {
+        if (is_integer($model) && $modelClass) {
+            $model = $modelClass::findOne($model);
+        } elseif (is_array($model)) {
+            $model = \Yii::createObject($model);
+        }
+        if (!($model instanceof Model)) {
+            throw new \Exception('Cannot determine or model not found');
+        }
+        $this->_storage[$pivotClass][] = $model;
+    }
+
+    public function savePivots($clear = false)
+    {
+        foreach ($this->getPivotStorage() as $pivotClass => $items) {
+            if ($clear) {
+                $this->deletePivots($pivotClass);
             }
-        }
-        if (!$values) {
-            $this->_storage[$pivotClass] = [];
+            foreach ($items as $item) {
+                $this->addPivot($item, $pivotClass);
+            }
         }
     }
 
@@ -113,5 +135,15 @@ class PivotBehavior extends Behavior
             $pv->save();
             return $pv;
         }
+    }
+
+    protected function getMainPk()
+    {
+        return $this->owner->{$this->owner->primaryKey()[0]};
+    }
+
+    protected function getMainPkField()
+    {
+        return $this->owner->tableName() . "_id";
     }
 }
