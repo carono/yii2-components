@@ -217,7 +217,7 @@ class UserCommand extends Controller
 			$name = basename($v);
 			$file = basename(current(glob($v . DIRECTORY_SEPARATOR . '*.php')), '.php');
 			if (class_exists($className = join('\\', ['app', 'modules', $name, $file]))) {
-				return new $className($name);
+				return new $className($name, null);
 			} else {
 				return null;
 			}
