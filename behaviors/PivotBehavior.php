@@ -91,7 +91,7 @@ class PivotBehavior extends Behavior
 
     public function storagePivot($model, $pivotClass, $modelClass = null)
     {
-        if (is_integer($model) && $modelClass) {
+        if (is_numeric($model) && $modelClass) {
             $model = $modelClass::findOne($model);
         } elseif (is_array($model)) {
             $model = \Yii::createObject($model);
