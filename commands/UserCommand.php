@@ -10,6 +10,12 @@ class UserCommand extends Controller
 {
 	public $userClass = 'app\models\User';
 
+	public function init()
+    {
+        RoleManager::$userClass = $this->userClass;
+        parent::init();
+    }
+	
 	public function roles()
 	{
 		/*
