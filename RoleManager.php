@@ -13,6 +13,7 @@ use yii\web\Request;
 
 class RoleManager
 {
+    public static $userClass = 'app\models\User';
     /**
      * @return \yii\rbac\ManagerInterface
      * @throws \Exception
@@ -34,15 +35,16 @@ class RoleManager
      */
     private static function getUserId($user = null)
     {
+        $class = self::$userClass;
         $id = null;
-        if ($user instanceof User) {
+        if ($user instanceof $class) {
             $id = $user->id;
         } elseif (is_numeric($user)) {
             $id = $user;
         } elseif (is_null($user)) {
             $id = CurrentUser::getId();
         } elseif (is_string($user)) {
-            $id = ArrayHelper::getValue(User::findByUsername($user), 'id');
+            $id = ArrayHelper::getValue($class::findByUsername($user), 'id');
         }
         return $id;
     }
