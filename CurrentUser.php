@@ -122,12 +122,13 @@ class CurrentUser
 
 	public static function findUser($user)
 	{
+	    $class = self::$className;
 		$model = null;
 		if (is_numeric($user)) {
-			$model = User::findOne($user);
+			$model = $class::findOne($user);
 		} elseif (is_string($user)) {
-			$model = User::findByUsername($user);
-		} elseif ($user instanceof User) {
+			$model = $class::findByUsername($user);
+		} elseif ($user instanceof $class) {
 			$model = $user;
 		}
 		return $model;
@@ -162,9 +163,10 @@ class CurrentUser
 	 */
 	public static function get($asRobot = false, $robot = null)
 	{
+	    $class = self::$className;
 		$user = null;
 		if (isset(\Yii::$app->components["user"]) && !\Yii::$app->user->isGuest) {
-			$user = User::findOne(\Yii::$app->user->identity->getId());
+			$user = $class::findOne(\Yii::$app->user->identity->getId());
 		}
 		if ($asRobot && !$user) {
 			$user = self::getRobot($robot);
