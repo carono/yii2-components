@@ -13,11 +13,7 @@ class ButtonColumn
 
     public function asLink()
     {
-        if ($this->icon) {
-            $span = Html::tag('span', '', ["class" => $this->icon]);
-        } else {
-            $span = '';
-        }
+        $span = Html::tag('span', $this->content, ["class" => $this->icon]);
         $this->options["title"] = $this->title;
         return Html::a($span, $this->url, $this->options);
     }
