@@ -9,6 +9,7 @@ class ButtonColumn
     public $icon;
     public $title;
     public $url;
+	public $content;
     public $options = [];
 
     public function asLink()
