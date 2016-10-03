@@ -1,6 +1,7 @@
 <?php
 namespace carono\components;
 
+use Doctrine\Common\Inflector\Inflector;
 use Yii;
 
 class ActionColumn extends \yii\grid\ActionColumn
@@ -15,7 +16,7 @@ class ActionColumn extends \yii\grid\ActionColumn
         $methods = get_class_methods($this);
         preg_match_all('/button(\w+)/', join(" ", $methods), $m);
         foreach ($m[1] as $button) {
-            $this->buttons[strtolower($button)] = function ($url, $model, $key) use ($button) {
+            $this->buttons[lcfirst($button)] = function ($url, $model, $key) use ($button) {
                 $result = call_user_func_array([$this, "button" . $button], [$url, $model, $key]);
                 if ($result instanceof ButtonColumn) {
                     return $result->asLink();
@@ -39,9 +40,10 @@ class ActionColumn extends \yii\grid\ActionColumn
     {
         return preg_replace_callback(
             '/\\{([\w\-\/]+)\\}/', function ($matches) use ($model, $key, $index) {
-            $name = $matches[1];
+            $action = $matches[1];
+            $name = Inflector::camelize(strtr($matches[1], ['/' => '_', '\\' => '_']));
             if (isset($this->buttons[$name]) && $this->buttonIsVisible($name, $model, $key, $index)) {
-                $url = $this->createUrl($name, $model, $key, $index);
+                $url = $this->createUrl($action, $model, $key, $index);
                 if (!$this->checkUrlAccess || RoleManager::checkAccessByUrl($url)) {
                     return call_user_func($this->buttons[$name], $url, $model, $key);
                 } else {
