@@ -152,7 +152,7 @@ class CurrentUser
 
 	public static function isGuest()
 	{
-		return \Yii::$app->user->isGuest;
+		return \Yii::$app->user->getIsGuest();
 	}
 
 	/**
@@ -165,7 +165,7 @@ class CurrentUser
 	{
 	    $class = self::$className;
 		$user = null;
-		if (isset(\Yii::$app->components["user"]) && !\Yii::$app->user->isGuest) {
+		if (isset(\Yii::$app->components["user"]) && !self::isGuest()) {
 			$user = $class::findOne(\Yii::$app->user->identity->getId());
 		}
 		if ($asRobot && !$user) {
