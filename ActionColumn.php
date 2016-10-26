@@ -1,8 +1,8 @@
 <?php
 namespace carono\components;
 
-use Doctrine\Common\Inflector\Inflector;
 use Yii;
+use yii\helpers\Inflector;
 
 class ActionColumn extends \yii\grid\ActionColumn
 {
