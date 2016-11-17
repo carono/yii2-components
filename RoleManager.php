@@ -33,12 +33,12 @@ class RoleManager
      * @return int|mixed|null|string
      * @throws \Exception
      */
-    private static function getUserId($user = null)
+	private static function getUserId($user = null)
     {
         $class = self::$userClass;
         $id = null;
-        if ($user instanceof $class) {
-            $id = $user->id;
+        if ($user instanceof ActiveRecord) {
+            $id = $user->getPrimaryKey();
         } elseif (is_numeric($user)) {
             $id = $user;
         } elseif (is_null($user)) {
