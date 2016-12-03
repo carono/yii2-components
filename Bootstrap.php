@@ -36,23 +36,6 @@ class Bootstrap implements BootstrapInterface
 				$name = file_exists(\Yii::getAlias("@app/commands/{$command}.php")) ? "carono" . ucfirst($name) : $name;
 				$app->controllerMap[$name] = 'carono\components\commands\\' . $command;
 			}
-			if (!isset($app->controllerMap['giix'])) {
-				if (($gii = $app->getModule('gii')) && isset($gii->generators["giiant-model"])) {
-					if (!isset($gii->generators["giiant-model"]["templates"])) {
-						if (is_array($gii->generators["giiant-model"])) {
-							$gii->generators["giiant-model"]["templates"] = [];
-						} else {
-							$gii->generators["giiant-model"] = [
-								"class"     => 'schmunk42\giiant\generators\model\Generator',
-								"templates" => []
-							];
-						}
-					}
-					$template = '@vendor/carono/yii2-components/templates/giiant-model';
-					$gii->generators["giiant-model"]["templates"]["caronoModel"] = $template;
-					$app->controllerMap['giix'] = 'carono\components\commands\GiixController';
-				}
-			}
 		}
 	}
 }
