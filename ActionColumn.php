@@ -33,6 +33,7 @@ class ActionColumn extends \yii\grid\ActionColumn
         $button->icon = "glyphicon glyphicon-upload";
         $button->title = "Загрузить";
         $button->url = $url;
+        $button->options = $this->buttonOptions;
         return $button;
     }
 
@@ -41,7 +42,7 @@ class ActionColumn extends \yii\grid\ActionColumn
         return preg_replace_callback(
             '/\\{([\w\-\/]+)\\}/', function ($matches) use ($model, $key, $index) {
             $action = $matches[1];
-            $name = Inflector::camelize(strtr($matches[1], ['/' => '_', '\\' => '_']));
+            $name = lcfirst(Inflector::camelize(strtr($matches[1], ['/' => '_', '\\' => '_'])));
             if (isset($this->buttons[$name]) && $this->buttonIsVisible($name, $model, $key, $index)) {
                 $url = $this->createUrl($action, $model, $key, $index);
                 if (!$this->checkUrlAccess || RoleManager::checkAccessByUrl($url)) {
