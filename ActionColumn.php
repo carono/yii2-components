@@ -45,8 +45,17 @@ class ActionColumn extends \yii\grid\ActionColumn
             $action = $matches[1];
             $name = lcfirst(Inflector::camelize(strtr($matches[1], ['/' => '_', '\\' => '_'])));
             if (isset($this->buttons[$name]) && $this->buttonIsVisible($name, $model, $key, $index)) {
+
+                if (isset($this->visibleButtons[$name])) {
+                    $isVisible = $this->visibleButtons[$name] instanceof \Closure
+                        ? call_user_func($this->visibleButtons[$name], $model, $key, $index)
+                        : $this->visibleButtons[$name];
+                } else {
+                    $isVisible = true;
+                }
+
                 $url = $this->createUrl($action, $model, $key, $index);
-                if (!$this->checkUrlAccess || RoleManager::checkAccessByUrl($url)) {
+                if ($isVisible && (!$this->checkUrlAccess || RoleManager::checkAccessByUrl($url))) {
                     return call_user_func($this->buttons[$name], $url, $model, $key);
                 } else {
                     return '';
