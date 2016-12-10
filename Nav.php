@@ -1,6 +1,8 @@
 <?php
 namespace carono\components;
 
+use carono\yii2rbac\RoleManager;
+
 class Nav extends \yii\bootstrap\Nav
 {
 

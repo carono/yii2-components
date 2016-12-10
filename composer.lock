@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "18c0ce79d452cc340df43f8b95e5e219",
-    "content-hash": "4f8dbf2d82a403801473825c8ff720d7",
+    "hash": "d5596ac30024e3c6c456cd51db8fc704",
+    "content-hash": "db8b796dbba053815db46729f8562c39",
     "packages": [
         {
             "name": "2amigos/yii2-transliterator-helper",
@@ -288,6 +288,45 @@
             "license": [
                 "MIT"
             ]
+        },
+        {
+            "name": "carono/yii2-rbac",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/carono/yii2-rbac.git",
+                "reference": "ccbe06d6cf7ef7e2abdb83f5fbee882a14a6f5d6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/carono/yii2-rbac/zipball/ccbe06d6cf7ef7e2abdb83f5fbee882a14a6f5d6",
+                "reference": "ccbe06d6cf7ef7e2abdb83f5fbee882a14a6f5d6",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "~2.0"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "bootstrap": "carono\\yii2rbac\\Bootstrap"
+            },
+            "autoload": {
+                "psr-4": {
+                    "carono\\yii2rbac\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "carno",
+                    "email": "spamer2000@list.ru"
+                }
+            ],
+            "description": "Yii2 RBAC extension",
+            "time": "2016-12-03 09:18:38"
         },
         {
             "name": "cebe/markdown",
@@ -804,6 +843,45 @@
                 "yii2"
             ],
             "time": "2015-06-28 18:05:41"
+        },
+        {
+            "name": "mauricesvay/php-facedetection",
+            "version": "0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mauricesvay/php-facedetection.git",
+                "reference": "b016273ceceacd85562bbc50384fbabc947fe525"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mauricesvay/php-facedetection/zipball/b016273ceceacd85562bbc50384fbabc947fe525",
+                "reference": "b016273ceceacd85562bbc50384fbabc947fe525",
+                "shasum": ""
+            },
+            "require": {
+                "ext-gd": "*",
+                "php": ">=5.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "FaceDetector.php",
+                    "Exception/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Maurice Svay",
+                    "homepage": "https://github.com/mauricesvay/php-facedetection/graphs/contributors"
+                }
+            ],
+            "description": "PHP class to detect one face in images. A pure PHP port of an existing JS code from Karthik Tharavad.",
+            "homepage": "https://github.com/mauricesvay/php-facedetection",
+            "time": "2016-01-26 22:10:00"
         },
         {
             "name": "phpspec/php-diff",

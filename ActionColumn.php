@@ -1,6 +1,7 @@
 <?php
 namespace carono\components;
 
+use carono\yii2rbac\RoleManager;
 use Yii;
 use yii\helpers\Inflector;
 

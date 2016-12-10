@@ -4,7 +4,7 @@ namespace carono\components\commands;
 
 use yii\base\InlineAction;
 use yii\console\Controller;
-use carono\components\RoleManager;
+use carono\yii2rbac\RoleManager;
 
 class UserCommand extends Controller
 {
@@ -12,7 +12,7 @@ class UserCommand extends Controller
 
 	public function init()
     {
-        RoleManager::$userClass = $this->userClass;
+        RoleManager::$identityClass = $this->userClass;
         parent::init();
     }
 	
