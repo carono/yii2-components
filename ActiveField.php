@@ -12,10 +12,8 @@ use yii\bootstrap\Html as BaseHtml;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\jui\AutoComplete;
 use yii\jui\DatePicker;
 use yii\redactor\widgets\Redactor;
-use yii\web\JsExpression;
 
 class ActiveField extends BootstrapActiveField
 {
@@ -45,7 +43,7 @@ class ActiveField extends BootstrapActiveField
         ArrayHelper::remove($options, 'allowClear');
         ArrayHelper::remove($options, 'prompt');
         return $this->widget(
-            DepDrop::classname(), [
+            DepDrop::className(), [
                 'options'        => $options,
                 'type'           => \kartik\depdrop\DepDrop::TYPE_SELECT2,
                 'data'           => $items,
@@ -92,7 +90,7 @@ class ActiveField extends BootstrapActiveField
             $items = [];
         }
         $models = $items;
-        if (is_string($items)) {
+        if (is_string($items) && class_exists($items)) {
             $items = $items::find()->all();
         }
         if ($items && (reset($items) && current($items) instanceof Model)) {
@@ -104,23 +102,24 @@ class ActiveField extends BootstrapActiveField
     public function typeahead($url, $options = [], $widgetOptions = [])
     {
         Html::addCssClass($options, 'form-control');
+        $dataSet = ArrayHelper::remove($widgetOptions, 'dataset', []);
+        $query = ArrayHelper::remove($widgetOptions, 'query', 'q');
         $options = ArrayHelper::merge(
             [
                 'options' => $options,
                 'dataset' => [
-                    [
-                        'datumTokenizer' => new JsExpression("Bloodhound.tokenizers.obj.whitespace('name')"),
-                        'queryTokenizer' => new JsExpression("Bloodhound.tokenizers.whitespace"),
-                        'remote'         => [
-                            'url'      => Url::to([$url, 'q' => 'QRY']),
-                            'wildcard' => 'QRY',
-                        ],
-                        'display'        => 'text',
-                    ]
+                    ArrayHelper::merge(
+                        [
+                            'remote'  => [
+                                'url'      => Url::to([$url, $query => 'QRY']),
+                                'wildcard' => 'QRY',
+                            ],
+                            'display' => 'text',
+                        ], $dataSet
+                    )
                 ],
             ], $widgetOptions
         );
-
         return $this->widget(Typeahead::className(), $options);
     }
 
@@ -128,7 +127,7 @@ class ActiveField extends BootstrapActiveField
     {
         Html::addCssClass($options, 'form-control');
         return $this->widget(
-            DatePicker::classname(), [
+            DatePicker::className(), [
                 'language'   => 'ru',
                 'dateFormat' => 'dd.MM.yyyy',
                 'options'    => $options
@@ -140,7 +139,7 @@ class ActiveField extends BootstrapActiveField
     {
         Html::addCssClass($options, 'form-control');
         return $this->widget(
-            DateTimePicker::classname(), [
+            DateTimePicker::className(), [
                 'options'       => ['placeholder' => 'Select operating time ...'],
                 'convertFormat' => true,
                 'pluginOptions' => ArrayHelper::merge(
