@@ -33,8 +33,5 @@
     "psr-4": {
       "carono\\components\\": ""
     }
-  },
-  "extra": {
-    "bootstrap": "carono\\components\\Bootstrap"
   }
 }
